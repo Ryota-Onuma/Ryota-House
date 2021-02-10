@@ -1,25 +1,42 @@
-import logo from './logo.svg';
+import firebase from './plugins/firebase'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from 'react-router-dom'
 import './App.css';
+import Top from "./pages/top.js"
+import Signin from "./pages/signin.js"
 
-function App() {
+let isAuthenticated;
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <section className="App">
+     <Router>
+     <Link to="/">トップ</Link>
+      <Link to="/signin">サインイン</Link>
+     <Switch>
+
+      <Route exact path="/" component={Top}/>
+      <Route exact path="/signin" component={Signin} />
+      </Switch>
+      </Router>
+    </section>
   );
 }
 
+// const isSignedIn = () =>  {
+//   firebase.auth().onAuthStateChanged((user) => {
+//     if (user) {
+//       // 直接アクションをディスパッチ
+//       isAuthenticated = true
+//     }
+//     else {
+//       // 直接アクションをディスパッチ
+//       isAuthenticated = false
+//     }
+//   })
+// }
 export default App;
