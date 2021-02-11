@@ -123,7 +123,6 @@
 @media screen and (max-width: 480px) {
   #top {
     width: 100%;
-
     height: auto;
     display: flex;
     flex-direction: column;
@@ -132,8 +131,12 @@
     padding: 100px 40px 0px 40px;
     box-sizing: border-box;
     background-color: #eae8dd;
+    &.not-joined {
+      height: 100vh;
+    }
     #main {
       width: 100%;
+      height: auto;
       display: flex;
       flex-direction: column;
       justify-content: center;

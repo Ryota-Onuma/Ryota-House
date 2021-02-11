@@ -10,12 +10,24 @@ import {
 } from '../plugins/agora.js'
 
 const database = firebase.database()
+const room_name = 'main-room'
+window.addEventListener('beforeunload', (event) => {
+  event.preventDefault()
+  event.returnValue = ''
+})
+window.addEventListener('unload', (event) => {
+  event.preventDefault()
+  const user = firebase.auth().currentUser
+  database.ref(`${room_name}/${user.uid}`).remove()
+  event.returnValue = ''
+})
+
 startBasicCall()
 
 const Top = () => {
   const [prticipants, setPrticipants] = useState()
   const [is_joined, setIsJoined] = useState(false)
-  const room_name = 'hogehoge'
+
   const setPrticipant = (agora_id) => {
     const user = firebase.auth().currentUser
     database.ref(`${room_name}/${user.uid}`).set({
@@ -98,7 +110,7 @@ const Top = () => {
     )
   }
   return (
-    <section id="top">
+    <section id="top" className={is_joined ? '' : 'not-joined'}>
       <div id="main">
         <div id="image-container">
           {is_joined ? (
