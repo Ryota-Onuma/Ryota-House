@@ -1,22 +1,152 @@
-import React from 'react';
-import { startBasicCall,join,leave,publish,unpublish } from "../plugins/agora.js"
-const top = () => {
+import React, { useState } from 'react'
+import firebase from '../plugins/firebase'
+import '../assets/stylesheets/pages/top.scss'
+import {
+  startBasicCall,
+  join,
+  leave,
+  publish,
+  unpublish,
+} from '../plugins/agora.js'
 
-  startBasicCall();
+const database = firebase.database()
+startBasicCall()
 
-  return(
+const Top = () => {
+  const [prticipants, setPrticipants] = useState()
+  const [is_joined, setIsJoined] = useState(false)
+  const room_name = 'hogehoge'
+  const setPrticipant = (agora_id) => {
+    const user = firebase.auth().currentUser
+    database.ref(`${room_name}/${user.uid}`).set({
+      agora_id: agora_id,
+      user_id: user.uid,
+      name: user.displayName,
+    })
+  }
+  const getprticipants = () => {
+    const res = database.ref(room_name).on('value', (res) => {
+      const data = res.val()
+      if (data) {
+        const array = Object.keys(data).map((key) => {
+          return {
+            agora_id: data[key].agora_id,
+            name: data[key].name,
+          }
+        })
+        return array
+      } else {
+        return null
+      }
+    })
+  }
+
+  const joinHundler = async () => {
+    const agora_id = await join()
+    setPrticipant(agora_id)
+    database.ref(room_name).on('value', (res) => {
+      const data = res.val()
+      if (data) {
+        const array = Object.keys(data).map((key) => {
+          return {
+            agora_id: data[key].agora_id,
+            name: data[key].name,
+          }
+        })
+
+        setPrticipants((prticipants) =>
+          array.map((el) => [el.agora_id, el.name])
+        )
+        setIsJoined(true)
+      }
+    })
+  }
+
+  const leaveHundler = async () => {
+    leave()
+    const user = firebase.auth().currentUser
+    database.ref(`${room_name}/${user.uid}`).remove()
+    database.ref(room_name).on('value', (res) => {
+      const data = res.val()
+      if (data) {
+        const array = Object.keys(data).map((key) => {
+          return {
+            agora_id: data[key].agora_id,
+            name: data[key].name,
+          }
+        })
+        setPrticipants((prticipants) =>
+          array.map((el) => [el.agora_id, el.name])
+        )
+      } else {
+        setPrticipants((prticipants) => null)
+      }
+    })
+    setIsJoined(false)
+  }
+
+  const JoinedButtons = () => {
+    return (
+      <div id="joind-buttons">
+        <input type="radio" id="leave" onClick={leaveHundler} />
+        <label htmlFor="leave">👋 退出する</label>
+        <input type="radio" id="publish" name="mute" onClick={publish} />
+        <label htmlFor="publish">🔊 しゃべる</label>
+        <input type="radio" id="unpublish" name="mute" onClick={unpublish} />
+        <label htmlFor="unpublish">🔇 ミュート</label>
+      </div>
+    )
+  }
+  return (
     <section id="top">
-    <div id="button-container">
-    <button id="join" onClick={join}>▶️ Join</button>
-      <button id="leave" onClick={leave}>⏹ Leave</button>
-      <button id="publish" onClick={publish}>🔊 Publish (unmute)</button>
-      <button id="unpublish" onClick={unpublish}>🔇 Unpublish (mute)</button>
-    </div>
-    
-      <p>Your ID: <span id="userId"></span></p>
-      <p>Participants (<span id="numOfParticipants">0</span>):</p>
-      <ul id="participantList"></ul>
+      <div id="main">
+        <div id="image-container">
+          {is_joined ? (
+            <img
+              src="https://3.bp.blogspot.com/-tRbm_EcL2Ag/W4PJ8J3P56I/AAAAAAABOLM/v6GP9sTmHxAkCFm0pYepTeqw02UE82afwCLcBGAs/s400/room_yuka_tatami_old.png"
+              id="joined-img"
+              className="top-image"
+            />
+          ) : (
+            <img
+              src="https://3.bp.blogspot.com/-ug0NOvztbBc/UV1JEk1n3eI/AAAAAAAAPSE/8G6UXvctb6I/s400/door.png"
+              id="not-joined-img"
+              className="top-image"
+            />
+          )}
+        </div>
+        <div id="button-container">
+          {is_joined ? (
+            <JoinedButtons />
+          ) : (
+            <button id="join" onClick={joinHundler}>
+              🚪 ノックする
+            </button>
+          )}
+        </div>
+      </div>
+      <div id="menus">
+        <div id="list-title">
+          {prticipants ? (
+            <span>
+              参加者 (<span id="numOfParticipants">{prticipants.length}</span>)
+            </span>
+          ) : (
+            <span></span>
+          )}
+        </div>
+        <div id="list">
+          <ul>
+            {prticipants
+              ? prticipants.map((prticipant, i) => {
+                  const user = { agora_id: prticipant[0], name: prticipant[1] }
+                  return <li key={i}>{user.name}</li>
+                })
+              : null}
+          </ul>
+        </div>
+      </div>
     </section>
   )
 }
-export default top
+export default Top

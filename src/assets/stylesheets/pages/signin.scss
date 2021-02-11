@@ -1,0 +1,42 @@
+#signin {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #eae8dd;
+  padding-top: 200px;
+  #title {
+    font-size: 2rem;
+    text-align: center;
+  }
+  #sign-in-with {
+    margin: 150px 0 30px 0;
+    text-align: center;
+    #sign-in-methods {
+      padding: 30px;
+    }
+  }
+}
+@media screen and (max-width: 480px) {
+  #signin {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #eae8dd;
+    padding-top: 100px;
+    #title {
+      font-size: 2rem;
+      text-align: center;
+    }
+    #sign-in-with {
+      margin: 100px 0 30px 0;
+      text-align: center;
+      #sign-in-methods {
+        padding: 30px;
+      }
+    }
+  }
+}

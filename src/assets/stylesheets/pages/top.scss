@@ -1,0 +1,255 @@
+#top {
+  width: 100%;
+  height: 100vh;
+  background-color: #eae8dd;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  box-sizing: border-box;
+  position: relative;
+  #main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    #button-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin-top: 100px;
+      #joind-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        label {
+          display: inline-block;
+          padding: 10px 20px;
+          margin: 20px;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          border-radius: 30px;
+          &:hover {
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+          }
+        }
+
+        input[type='radio'] {
+          display: none;
+          &:checked + label {
+            border: 1px solid black;
+          }
+        }
+
+        label[for='leave'] {
+          color: #22aa5e;
+          background-color: #eaeaea;
+          &:hover {
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+          }
+        }
+        label[for='publish'] {
+          color: black;
+          background-color: #eaeaea;
+          &:hover {
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+          }
+        }
+        label[for='unpublish'] {
+          &:hover {
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+          }
+        }
+      }
+      #join {
+        background-color: #22aa5e;
+        color: white;
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 20px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 30px;
+        &:hover {
+          box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+  }
+  #menus {
+    position: absolute;
+    top: 200px;
+    right: 150px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding-bottom: 300px;
+    #list-title {
+      margin-bottom: 20px;
+      span {
+        font-size: 1.3rem;
+        margin: 20px 0;
+        color: black;
+      }
+    }
+    #list {
+      width: 100%;
+      ul {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        li {
+          width: 100%;
+          list-style: none;
+          margin: 15px 0;
+          padding: 10px;
+          text-align: left;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 959px) {
+  /* 959px以下に適用されるCSS（タブレット用） */
+}
+@media screen and (max-width: 480px) {
+  #top {
+    width: 100%;
+
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 100px 40px 0px 40px;
+    box-sizing: border-box;
+    background-color: #eae8dd;
+    #main {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      #image-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        img {
+          max-width: 90%;
+        }
+      }
+      #button-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+        #joind-buttons {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          label {
+            width: 100%;
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 30px;
+            text-align: center;
+            &:hover {
+              box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+            }
+          }
+
+          input[type='radio'] {
+            display: none;
+            &:checked + label {
+              border: 1px solid black;
+            }
+          }
+
+          label[for='leave'] {
+            color: #22aa5e;
+            background-color: #eaeaea;
+            &:hover {
+              box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+            }
+          }
+          label[for='publish'] {
+            color: black;
+            background-color: #eaeaea;
+            &:hover {
+              box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+            }
+          }
+          label[for='unpublish'] {
+            &:hover {
+              box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+            }
+          }
+        }
+        #join {
+          width: 100%;
+          background-color: #22aa5e;
+          color: white;
+          display: inline-block;
+          padding: 10px 20px;
+          margin: 40px 0 100px 0;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          border-radius: 30px;
+          text-align: center;
+          &:hover {
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+          }
+        }
+      }
+    }
+    #menus {
+      position: static;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      margin-top: 40px;
+      #list-title {
+        margin-bottom: 20px;
+        span {
+          font-size: 1.3rem;
+          margin: 20px 0;
+          color: black;
+        }
+      }
+      #list {
+        width: 100%;
+        ul {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          li {
+            width: 100%;
+            list-style: none;
+            margin: 15px 0;
+            padding: 10px;
+            text-align: left;
+          }
+        }
+      }
+    }
+  }
+}
