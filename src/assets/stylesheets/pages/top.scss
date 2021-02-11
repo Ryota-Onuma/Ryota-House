@@ -80,6 +80,12 @@
           box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
         }
       }
+      #signout {
+        position: absolute;
+        top: -46px;
+        right: 40px;
+        cursor: pointer;
+      }
     }
   }
   #menus {
@@ -218,6 +224,13 @@
           &:hover {
             box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
           }
+        }
+        #signout {
+          position: fixed;
+          top: 13px;
+          right: 10px;
+          z-index: 10;
+          cursor: pointer;
         }
       }
     }

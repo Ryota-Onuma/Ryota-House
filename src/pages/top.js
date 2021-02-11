@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import firebase from '../plugins/firebase'
 import '../assets/stylesheets/pages/top.scss'
+import { Icon, InlineIcon } from '@iconify/react'
+import signoutIcon from '@iconify-icons/uil/signout'
 import {
   startBasicCall,
   join,
@@ -17,6 +19,7 @@ window.addEventListener('beforeunload', (event) => {
 })
 window.addEventListener('unload', (event) => {
   event.preventDefault()
+  leave()
   const user = firebase.auth().currentUser
   database.ref(`${room_name}/${user.uid}`).remove()
   event.returnValue = ''
@@ -96,7 +99,13 @@ const Top = () => {
     })
     setIsJoined(false)
   }
-
+  const Signout = async () => {
+    try {
+      await firebase.auth().signOut()
+    } catch (error) {
+      console.log(error)
+    }
+  }
   const JoinedButtons = () => {
     return (
       <div id="joind-buttons">
@@ -131,9 +140,19 @@ const Top = () => {
           {is_joined ? (
             <JoinedButtons />
           ) : (
-            <button id="join" onClick={joinHundler}>
-              🚪 ノックする
-            </button>
+            <div>
+              <button id="join" onClick={joinHundler}>
+                🚪 ノックする
+              </button>
+              <Icon
+                icon={signoutIcon}
+                onClick={Signout}
+                color="red"
+                width="30"
+                height="30"
+                id="signout"
+              />
+            </div>
           )}
         </div>
       </div>

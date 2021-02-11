@@ -1,8 +1,7 @@
 import React from 'react'
 import firebase from '../plugins/firebase'
 import '../assets/stylesheets/components/header.scss'
-import { Icon, InlineIcon } from '@iconify/react'
-import signoutIcon from '@iconify-icons/uil/signout'
+
 class Header extends React.Component {
   state = {
     userName: null,
@@ -37,13 +36,7 @@ class Header extends React.Component {
   componentWillUnmount = () => {
     this._isMounted = false
   }
-  Signout = async () => {
-    try {
-      await firebase.auth().signOut()
-    } catch (error) {
-      console.log(error)
-    }
-  }
+
   render() {
     if (this.state.userName) {
       return (
@@ -54,13 +47,6 @@ class Header extends React.Component {
           <div id="header-right">
             <img src={this.state.userImage} />
             <span>{this.state.userName}</span>
-            <Icon
-              icon={signoutIcon}
-              onClick={this.Signout}
-              color="red"
-              width="30"
-              height="30"
-            />
           </div>
         </header>
       )

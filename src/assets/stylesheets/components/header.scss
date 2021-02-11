@@ -61,11 +61,11 @@ header {
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      margin-left: 20px;
+      width: 50%;
+      box-sizing: border-box;
+      margin: 0;
       span {
         display: inline-block;
-
-        width: 110px;
         font-size: 18px;
         font-weight: bold;
       }
@@ -75,7 +75,8 @@ header {
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      margin-right: 15px;
+      width: 50%;
+      margin-right: 20px;
       button {
         background-color: transparent;
         cursor: pointer;
@@ -91,9 +92,6 @@ header {
         font-size: 18px;
         margin-right: 0;
         padding: 0 15px;
-      }
-      svg {
-        cursor: pointer;
       }
     }
   }
