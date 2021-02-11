@@ -33,26 +33,12 @@ const Top = () => {
 
   const setPrticipant = (agora_id) => {
     const user = firebase.auth().currentUser
+    console.log(user.photoURL)
     database.ref(`${room_name}/${user.uid}`).set({
       agora_id: agora_id,
       user_id: user.uid,
       name: user.displayName,
-    })
-  }
-  const getprticipants = () => {
-    const res = database.ref(room_name).on('value', (res) => {
-      const data = res.val()
-      if (data) {
-        const array = Object.keys(data).map((key) => {
-          return {
-            agora_id: data[key].agora_id,
-            name: data[key].name,
-          }
-        })
-        return array
-      } else {
-        return null
-      }
+      image_url: user.photoURL,
     })
   }
 
@@ -66,11 +52,11 @@ const Top = () => {
           return {
             agora_id: data[key].agora_id,
             name: data[key].name,
+            image_url: data[key].image_url,
           }
         })
-
         setPrticipants((prticipants) =>
-          array.map((el) => [el.agora_id, el.name])
+          array.map((el) => [el.agora_id, el.name, el.image_url])
         )
         setIsJoined(true)
       }
@@ -88,10 +74,11 @@ const Top = () => {
           return {
             agora_id: data[key].agora_id,
             name: data[key].name,
+            image_url: data[key].image_url,
           }
         })
         setPrticipants((prticipants) =>
-          array.map((el) => [el.agora_id, el.name])
+          array.map((el) => [el.agora_id, el.name, el.image_url])
         )
       } else {
         setPrticipants((prticipants) => null)
@@ -170,8 +157,17 @@ const Top = () => {
           <ul>
             {prticipants
               ? prticipants.map((prticipant, i) => {
-                  const user = { agora_id: prticipant[0], name: prticipant[1] }
-                  return <li key={i}>{user.name}</li>
+                  const user = {
+                    agora_id: prticipant[0],
+                    name: prticipant[1],
+                    image_url: prticipant[2],
+                  }
+                  return (
+                    <li key={i} className="prticipant-container">
+                      <img src={user.image_url} />
+                      <span>{user.name}</span>
+                    </li>
+                  )
                 })
               : null}
           </ul>

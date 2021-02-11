@@ -99,6 +99,7 @@
     justify-content: center;
     box-sizing: border-box;
     padding-bottom: 300px;
+
     #list-title {
       margin-bottom: 20px;
       span {
@@ -112,15 +113,28 @@
       ul {
         width: 100%;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
-        li {
+        .prticipant-container {
           width: 100%;
-          list-style: none;
-          margin: 15px 0;
-          padding: 10px;
-          text-align: left;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          img {
+            width: 30px;
+            height: 30px;
+          }
+          span {
+            list-style: none;
+            margin: 15px 0;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+          }
         }
       }
     }
@@ -258,12 +272,25 @@
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          li {
+          .prticipant-container {
             width: 100%;
-            list-style: none;
-            margin: 15px 0;
-            padding: 10px;
-            text-align: left;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            img {
+              width: 30px;
+              height: 30px;
+            }
+            span {
+              list-style: none;
+              margin: 15px 0;
+              padding: 10px;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: center;
+            }
           }
         }
       }
