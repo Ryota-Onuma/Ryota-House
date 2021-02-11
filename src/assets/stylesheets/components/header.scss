@@ -22,7 +22,7 @@ header {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-right: 40px;
+    margin-right: 60px;
     button {
       background-color: transparent;
       cursor: pointer;
@@ -35,8 +35,8 @@ header {
     }
     span {
       background-color: transparent;
-
       padding: 20px;
+      margin-right: 40px;
     }
     svg {
       cursor: pointer;
@@ -61,7 +61,7 @@ header {
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      margin-left: 40px;
+      margin-left: 20px;
       span {
         font-size: 1rem;
         font-weight: bold;

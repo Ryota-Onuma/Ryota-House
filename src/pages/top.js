@@ -110,7 +110,7 @@ const Top = () => {
     )
   }
   return (
-    <section id="top" className={is_joined ? '' : 'not-joined'}>
+    <section id="top">
       <div id="main">
         <div id="image-container">
           {is_joined ? (

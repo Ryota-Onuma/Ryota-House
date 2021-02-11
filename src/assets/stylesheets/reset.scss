@@ -21,6 +21,7 @@
  */
 
 html {
+  height: 100%;
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
   -webkit-tap-highlight-color: transparent; /* 3*/
@@ -35,6 +36,7 @@ html {
 
 body {
   margin: 0;
+  height: 100%;
   font-family: 'Rubik', 'M PLUS 1p', sans-serif;
 }
 
