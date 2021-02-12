@@ -150,9 +150,6 @@
 }
 
 @media screen and (max-width: 959px) {
-  /* 959px以下に適用されるCSS（タブレット用） */
-}
-@media screen and (max-width: 480px) {
   #top {
     width: 100%;
     height: 100%;
@@ -195,6 +192,7 @@
           align-items: center;
           label {
             width: 100%;
+            max-width: 500px;
             display: inline-block;
             padding: 10px 20px;
             margin: 20px;
@@ -243,7 +241,7 @@
           color: white;
           display: inline-block;
           padding: 10px 20px;
-          margin: 40px 0 100px 0;
+          margin: 100px 0 0px 0;
           border: 1px solid rgba(0, 0, 0, 0.1);
           border-radius: 30px;
           text-align: center;
