@@ -157,7 +157,7 @@ const Top = () => {
         </div>
         <div id="menus">
           <div id="list-title">
-            {prticipants ? (
+            {prticipants && is_joined ? (
               <span>
                 参加者 (<span id="numOfParticipants">{prticipants.length}</span>
                 )
@@ -169,7 +169,7 @@ const Top = () => {
           <div id="list">
             <ul>
               {prticipants
-                ? prticipants.map((prticipant, i) => {
+                && is_joined ? prticipants.map((prticipant, i) => {
                     const user = {
                       agora_id: prticipant[0],
                       name: prticipant[1],
