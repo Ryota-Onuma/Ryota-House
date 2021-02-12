@@ -78,11 +78,20 @@ class Signin extends React.Component {
       return (
         <section id="signin">
           <h1 id="title">Ryota House</h1>
-          <h1 id="sign-in-with">Sign in with...</h1>
-          <div id="sign-in-methods">
-            <button onClick={this.signinMethod}>
-              <Icon icon={googleIcon} width="50" height="50" />
-            </button>
+          <div id="signin-parts">
+            <h1 id="sign-in-with">Sign in with...</h1>
+            <div id="sign-in-methods">
+              <button onClick={this.signinMethod}>
+                <Icon icon={googleIcon} width="50" height="50" />
+              </button>
+            </div>
+          </div>
+          <div id="browser-alert">
+            <h5>
+              {' '}
+              ※
+              SNSアプリ内蔵ブラウザではなく、ブラウザ専用アプリよりアクセスしてください
+            </h5>
           </div>
         </section>
       )

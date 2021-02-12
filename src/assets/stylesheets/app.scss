@@ -1,0 +1,28 @@
+#invalid-page {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #eae8dd;
+  h1 {
+    width: 100%;
+    font-size: 1.3rem;
+    text-align: center;
+  }
+  #browser-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    h2 {
+      margin: 20px 0;
+    }
+    .browser-info-parts {
+      width: 50%;
+    }
+  }
+}
