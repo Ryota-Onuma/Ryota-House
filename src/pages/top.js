@@ -3,6 +3,7 @@ import firebase from '../plugins/firebase'
 import '../assets/stylesheets/pages/top.scss'
 import { Icon, InlineIcon } from '@iconify/react'
 import signoutIcon from '@iconify-icons/uil/signout'
+import LoadingOverlay from 'react-loading-overlay'
 import {
   startBasicCall,
   join,
@@ -30,7 +31,7 @@ startBasicCall()
 const Top = () => {
   const [prticipants, setPrticipants] = useState()
   const [is_joined, setIsJoined] = useState(false)
-
+  const [is_loading, setIsLoading] = useState(false)
   const setPrticipant = (agora_id) => {
     const user = firebase.auth().currentUser
     console.log(user.photoURL)
@@ -43,6 +44,7 @@ const Top = () => {
   }
 
   const joinHundler = async () => {
+    setIsLoading(true)
     const agora_id = await join()
     setPrticipant(agora_id)
     database.ref(room_name).on('value', (res) => {
@@ -59,11 +61,13 @@ const Top = () => {
           array.map((el) => [el.agora_id, el.name, el.image_url])
         )
         setIsJoined(true)
+        setIsLoading(false)
       }
     })
   }
 
   const leaveHundler = async () => {
+    setIsLoading(true)
     leave()
     const user = firebase.auth().currentUser
     database.ref(`${room_name}/${user.uid}`).remove()
@@ -83,6 +87,7 @@ const Top = () => {
       } else {
         setPrticipants((prticipants) => null)
       }
+      setIsLoading(false)
     })
     setIsJoined(false)
   }
@@ -105,75 +110,84 @@ const Top = () => {
       </div>
     )
   }
-  return (
-    <section id="top">
-      <div id="main">
-        <div id="image-container">
-          {is_joined ? (
-            <img
-              src="https://3.bp.blogspot.com/-tRbm_EcL2Ag/W4PJ8J3P56I/AAAAAAABOLM/v6GP9sTmHxAkCFm0pYepTeqw02UE82afwCLcBGAs/s400/room_yuka_tatami_old.png"
-              id="joined-img"
-              className="top-image"
-            />
-          ) : (
-            <img
-              src="https://3.bp.blogspot.com/-ug0NOvztbBc/UV1JEk1n3eI/AAAAAAAAPSE/8G6UXvctb6I/s400/door.png"
-              id="not-joined-img"
-              className="top-image"
-            />
-          )}
-        </div>
-        <div id="button-container">
-          {is_joined ? (
-            <JoinedButtons />
-          ) : (
-            <div>
-              <button id="join" onClick={joinHundler}>
-                🚪 ノックする
-              </button>
-              <Icon
-                icon={signoutIcon}
-                onClick={Signout}
-                color="red"
-                width="30"
-                height="30"
-                id="signout"
+  if (is_loading) {
+    return (
+      <LoadingOverlay active={true} spinner text="Loading...">
+        <div style={{ height: '100vh', width: '100vw' }}></div>
+      </LoadingOverlay>
+    )
+  } else {
+    return (
+      <section id="top">
+        <div id="main">
+          <div id="image-container">
+            {is_joined ? (
+              <img
+                src="https://3.bp.blogspot.com/-tRbm_EcL2Ag/W4PJ8J3P56I/AAAAAAABOLM/v6GP9sTmHxAkCFm0pYepTeqw02UE82afwCLcBGAs/s400/room_yuka_tatami_old.png"
+                id="joined-img"
+                className="top-image"
               />
-            </div>
-          )}
+            ) : (
+              <img
+                src="https://3.bp.blogspot.com/-ug0NOvztbBc/UV1JEk1n3eI/AAAAAAAAPSE/8G6UXvctb6I/s400/door.png"
+                id="not-joined-img"
+                className="top-image"
+              />
+            )}
+          </div>
+          <div id="button-container">
+            {is_joined ? (
+              <JoinedButtons />
+            ) : (
+              <div>
+                <button id="join" onClick={joinHundler}>
+                  🚪 ノックする
+                </button>
+                <Icon
+                  icon={signoutIcon}
+                  onClick={Signout}
+                  color="red"
+                  width="30"
+                  height="30"
+                  id="signout"
+                />
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-      <div id="menus">
-        <div id="list-title">
-          {prticipants ? (
-            <span>
-              参加者 (<span id="numOfParticipants">{prticipants.length}</span>)
-            </span>
-          ) : (
-            <span></span>
-          )}
+        <div id="menus">
+          <div id="list-title">
+            {prticipants ? (
+              <span>
+                参加者 (<span id="numOfParticipants">{prticipants.length}</span>
+                )
+              </span>
+            ) : (
+              <span></span>
+            )}
+          </div>
+          <div id="list">
+            <ul>
+              {prticipants
+                ? prticipants.map((prticipant, i) => {
+                    const user = {
+                      agora_id: prticipant[0],
+                      name: prticipant[1],
+                      image_url: prticipant[2],
+                    }
+                    return (
+                      <li key={i} className="prticipant-container">
+                        <img src={user.image_url} />
+                        <span>{user.name}</span>
+                      </li>
+                    )
+                  })
+                : null}
+            </ul>
+          </div>
         </div>
-        <div id="list">
-          <ul>
-            {prticipants
-              ? prticipants.map((prticipant, i) => {
-                  const user = {
-                    agora_id: prticipant[0],
-                    name: prticipant[1],
-                    image_url: prticipant[2],
-                  }
-                  return (
-                    <li key={i} className="prticipant-container">
-                      <img src={user.image_url} />
-                      <span>{user.name}</span>
-                    </li>
-                  )
-                })
-              : null}
-          </ul>
-        </div>
-      </div>
-    </section>
-  )
+      </section>
+    )
+  }
 }
 export default Top
